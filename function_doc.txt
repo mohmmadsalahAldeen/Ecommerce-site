@@ -1,0 +1,26 @@
+
+
+
+getAllFrom($field, $table, $where = NULL, $and = NULL, $orderfiled, $ordering = 'DESC');
+
+
+/*
+** Get ad items function v2.0
+** Function to get ad items from database
+*/
+
+function getItems($where, $value, $approve = NULL) {
+
+  global $con;
+
+  $sql = $approve == NULL ? 'AND approve = 1' : '';
+
+  $getItems = $con->prepare("SELECT * FROM items WHERE $where = ? $sql ORDER BY ID_item DESC");
+
+  $getItems->execute(array($value));
+
+  $items = $getItems->fetchAll();
+
+  return $items;
+
+}
